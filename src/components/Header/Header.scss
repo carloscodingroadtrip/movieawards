@@ -1,0 +1,29 @@
+.header {
+  background: #053D62;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    max-width: 1280px;
+    padding: 10px 0px;
+    margin: 0 auto;
+    box-sizing: border-box;
+
+    @media screen and (max-width: 500px) {
+      max-width: 1280px;
+      min-height: 0px;
+  }
+}
+
+.logo {
+  color: #fff;
+  padding: 10px;
+  height: 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  background: #1fc4fc;
+}

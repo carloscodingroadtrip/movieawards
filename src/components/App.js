@@ -1,10 +1,15 @@
 import React from 'react';
+import {BrowserRouter as Router} from 'react-router-dom'
 import Bar from './GradBar'
+import Header from './Header'
+import Home from './Home'
+
 export default () => {
   return (
-    <div>
+    <Router>
       <Bar/>
-      <h1>Hi, from main Movie Awards App</h1>
-    </div>
-  );
+      <Header/>
+      <Home />
+    </Router>
+  )
 }
