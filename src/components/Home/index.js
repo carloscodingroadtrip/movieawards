@@ -1,18 +1,20 @@
 import React,{useState} from 'react'
 import Search from '../SearchBar'
+import Grid from '../Grid'
 
-import {INITIAL_SEARCH_BASE_URL} from "../config";
+import {INITIAL_SEARCH_BASE_URL,SEARCH_URL,SEARCH_PARAMS} from "../config";
 import {useFetch} from '../../Hooks/useFetch';
 
 export default () => {
-
     const [searchTerm, setSearchTerm] = useState('')
     const [{error,data}, fetchData] = useFetch(searchTerm)
 
     console.log(data);
 
     const searchMovies= (search) => {
-        fetchData(endPoint)
+        setSearchTerm(search)
+        const url = SEARCH_URL + search + SEARCH_PARAMS;
+        fetchData(url);
     }
 
     const endPoint = INITIAL_SEARCH_BASE_URL;
@@ -24,8 +26,24 @@ export default () => {
         <div>
             <h1>Profile |  Nominations</h1>
             <Search callback={searchMovies}/>
-            <h3>GRID GRID GRID</h3>
+            <Grid>
+            {
+                data.forEach(movie =>
+                        (
+                            <ul>
+                            {movie.Title}
+                            </ul>
+                        )
+                )
+            }
+            </Grid>
+            {}
             <h4>Load more...</h4>
         </div>
-)
+    )
+}
+
+function ListItem(props) {
+  // Correct! There is no need to specify the key here:
+  return <li>{props.value}</li>;
 }

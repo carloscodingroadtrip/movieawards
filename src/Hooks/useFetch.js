@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
-import {INITIAL_SEARCH_BASE_URL,GET_FULL_MOVIE_INFO} from '../components/config';
+import {INITIAL_SEARCH_BASE_URL, GET_FULL_MOVIE_INFO} from '../components/config';
+
 import {arrayToObject} from '../utils'
 
 export const useFetch = (searchTerm) => {
@@ -22,30 +23,23 @@ export const useFetch = (searchTerm) => {
         }
         setData(movieDetailArr);
     } catch (error) {
-        console.log(error);
         setError(true)
     }
 };
 
 useEffect(() => {
-        if (!searchTerm) {
-            if(data.length>0) {
-            console.log('writing to sessionStorage');
-                sessionStorage.setItem('homeState', JSON.stringify(data));
-            }
-        }
-    }, [searchTerm, data]);
-
-useEffect(() => {
-    if (sessionStorage.homeState) {
-        if (typeof(sessionStorage.getItem('homeState') !== 'undefined')) {
-            console.log(`get data from sessionStorage`);
-            setData(JSON.parse(sessionStorage.getItem('homeState')));
-        }
+    //Check to see if our last search is in SessionStorage
+    if (sessionStorage.lastSearchState && typeof(sessionStorage.getItem('lastSearchState') !== 'undefined')) {
+            setData(JSON.parse(sessionStorage.getItem('lastSearchState')));
     } else {
-        fetchData(INITIAL_SEARCH_BASE_URL);
+        fetchData(INITIAL_SEARCH_BASE_URL)
     }
 }, []);
+
+useEffect(() => {
+    //if a searchTerm is sent, data has changed therefore update our SessionStorage
+    sessionStorage.setItem('lastSearchState', JSON.stringify(data));
+}, [searchTerm,data]);
 
 return [{data,error}, fetchData];
 }
