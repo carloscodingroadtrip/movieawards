@@ -15,7 +15,7 @@ export default ({callback}) => {
 
         timeOut.current = setTimeout(() => {
             callback(value);
-        }, 500);
+        }, 700);
     };
 
     return (

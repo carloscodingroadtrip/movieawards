@@ -3,8 +3,6 @@ import React from 'react';
 
 export default function Grid ({ children }) {
     return (
-        <p>
-            {children}
-        </p>
+           <p>{console.log(children)}</p>
     );
 }

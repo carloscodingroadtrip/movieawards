@@ -14,6 +14,7 @@ export const useFetch = (searchTerm) => {
         for (let i = 1; i <= 2; i++) {
             const res = await( await  fetch(`${url}${i}`)).json()
             res.Search.forEach(element => moviesIds.push(element.imdbID));
+            setError(false)
         }
 
         let movieDetailArr=[]
@@ -29,8 +30,8 @@ export const useFetch = (searchTerm) => {
 
 useEffect(() => {
     //Check to see if our last search is in SessionStorage
-    if (sessionStorage.lastSearchState && typeof(sessionStorage.getItem('lastSearchState') !== 'undefined')) {
-            setData(JSON.parse(sessionStorage.getItem('lastSearchState')));
+    if (localStorage.lastSearchState && typeof(localStorage.getItem('lastSearchState') !== 'undefined')) {
+            setData(JSON.parse(localStorage.getItem('lastSearchState')));
     } else {
         fetchData(INITIAL_SEARCH_BASE_URL)
     }
@@ -38,7 +39,7 @@ useEffect(() => {
 
 useEffect(() => {
     //if a searchTerm is sent, data has changed therefore update our SessionStorage
-    sessionStorage.setItem('lastSearchState', JSON.stringify(data));
+    localStorage.setItem('lastSearchState', JSON.stringify(data));
 }, [searchTerm,data]);
 
 return [{data,error}, fetchData];
